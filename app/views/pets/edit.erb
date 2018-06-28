@@ -1,3 +1,37 @@
+<%#
+Should allow the user to select a new owner
+or create a new owner
+**If a new onwer is created it would override
+any existing owner that is selected
+%>
+
 <h1>Update Pet</h1>
 
+<form action="/pets/<%=@pet.id%>" method="Post">
+  <!-- put in method_override for patch -->
+  <label>Name:</label>
 
+  <br></br>
+
+  <input type="text" name="pet_name" id="pet_name" value="<%=@pet.name%>">
+  <br></br>
+
+  <label>Choose an existing owner:</label>
+
+  <br></br>
+
+  <%Owner.all.each do |owner|%>
+    <input type="radio" name="owner[name]" id="<%= owner.id%>" value="<%=owner.name%>" <%='checked' if @pet.owner_id == owner.id %>><%=owner.name%></input>
+  <%end%>
+
+  <br></br>
+
+  <label>and/or, create a new owner:</label>
+  <br></br>
+
+  <label>name:</label>
+    <input  type="text" name="owner_name" id="owner_name"></input>
+  <br></br>
+  <input type="submit" value="Update Pet">
+
+  </form>
